@@ -62,31 +62,35 @@ export default function ListadoProductosComponent() {
     <div>
       <h3 className='text-2xl font-bold mb-4'>Pociones</h3>
       <div className='grid grid-cols-2 gap-4'>
-        {productos.map((producto) => (
-          <div
-            key={producto.id}
-            className='bg-stone-700 shadow rounded-lg p-4 flex flex-col justify-between items-start relative h-64 hover:border-purple-600 border-transparent border-2'
-          >
-            <button className='bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-3 rounded-full absolute top-2 right-4 text-xs'>
-              {producto.precio} Gemas
-            </button>
-            <img
-              src={producto.imagen}
-              alt={producto.nombre}
-              className='w-16 h-16 object-cover mb-4 self-center mx-auto m-3'
-            />
-            <h4 className='text-lg font-bold'>{producto.nombre}</h4>
-            <p className='text-gray-500 text-xs mb-2 w-full'>
-              {producto.descripcion}
-            </p>
-            <button
-              className='bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 w-full rounded'
-              onClick={() => agregarItemAlCarrito(producto.id)}
+        {productos.map((producto) => {
+          const gemasText = producto.precio === 1 ? 'Gema' : 'Gemas';
+
+          return (
+            <div
+              key={producto.id}
+              className='bg-stone-700 shadow rounded-lg p-4 flex flex-col justify-between items-start relative h-64 hover:border-purple-600 border-transparent border-2'
             >
-              Agregar
-            </button>
-          </div>
-        ))}
+              <button className='bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-3 rounded-full absolute top-2 right-4 text-xs'>
+                {producto.precio} {gemasText}
+              </button>
+              <img
+                src={producto.imagen}
+                alt={producto.nombre}
+                className='w-16 h-16 object-cover mb-4 self-center mx-auto m-3'
+              />
+              <h4 className='text-lg font-bold'>{producto.nombre}</h4>
+              <p className='text-gray-500 text-xs mb-2 w-full'>
+                {producto.descripcion}
+              </p>
+              <button
+                className='bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 w-full rounded'
+                onClick={() => agregarItemAlCarrito(producto.id)}
+              >
+                Agregar
+              </button>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
