@@ -8,7 +8,7 @@ function App() {
   const [showCarrito, setShowCarrito] = useState(false);
 
   const toggleCarrito = () => {
-    setShowCarrito(!showCarrito);
+    setShowCarrito((prevShowCarrito) => !prevShowCarrito);
   };
 
   return (
@@ -20,7 +20,11 @@ function App() {
         <HeaderComponent toggleCarrito={toggleCarrito} />
         <div className='flex justify-center min-h-full'>
           <div className='max-w-lg w-full py-16'>
-            {showCarrito ? <CarritoComponent /> : <ListadoProductosComponent />}
+            {showCarrito ? (
+              <CarritoComponent toggleCarrito={toggleCarrito} />
+            ) : (
+              <ListadoProductosComponent />
+            )}
           </div>
         </div>
       </div>
