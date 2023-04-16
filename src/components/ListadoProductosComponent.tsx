@@ -12,7 +12,7 @@ interface Producto {
 
 export default function ListadoProductosComponent() {
   const [productos, setProductos] = useState<Producto[]>([]);
-  const { items, addItem } = useCarrito();
+  const { items, addItem, gemas } = useCarrito();
 
   useEffect(() => {
     fetch('http://localhost:3001/productos')
@@ -35,6 +35,11 @@ export default function ListadoProductosComponent() {
     const productoActual = productos.find((producto) => producto.id === id);
 
     if (!productoActual) {
+      return;
+    }
+
+    if (gemas < productoActual.precio) {
+      alert('No tienes suficientes gemas para comprar esta poción');
       return;
     }
 
