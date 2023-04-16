@@ -22,7 +22,7 @@ export default function ListadoProductosComponent() {
   }, []);
 
   function agregarItemAlCarrito(id: number) {
-    if (items.includes(id)) {
+    if (items.find((item) => item.id === id)) {
       alert('Ya has agregado este item al carrito');
       return;
     }
@@ -32,25 +32,34 @@ export default function ListadoProductosComponent() {
       return;
     }
 
-    const categoriaActual = productos.find(
-      (producto) => producto.id === id
-    )?.categoria;
-    const idsCategoriasActuales = items.map(
-      (itemId) =>
-        productos.find((producto) => producto.id === itemId)?.categoria
+    const productoActual = productos.find((producto) => producto.id === id);
+
+    if (!productoActual) {
+      return;
+    }
+
+    const categoriaActual = productoActual.categoria;
+    const categoriaYaEnCarrito = items.some(
+      (item) =>
+        productos.find((producto) => producto.id === item.id)?.categoria ===
+        categoriaActual
     );
-    if (idsCategoriasActuales?.includes(categoriaActual)) {
+
+    if (categoriaYaEnCarrito) {
       alert('Solo puedes agregar un item por categoría al carrito');
       return;
     }
 
-    addItem(id);
+    addItem(id, productoActual.precio);
   }
 
   return (
     <div>
       <h3 className='text-2xl font-bold mb-4'>Pociones</h3>
-      <div className='grid grid-cols-2 gap-4'>
+      <div
+        className='grid grid-cols-2
+ gap-4'
+      >
         {productos.map((producto) => (
           <div
             key={producto.id}

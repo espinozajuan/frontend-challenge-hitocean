@@ -1,13 +1,20 @@
 import { createContext, useContext, useState } from 'react';
 
+interface Pocion {
+  id: number;
+  precio: number;
+}
+
 interface CarritoContextData {
-  items: number[];
-  addItem: (id: number) => void;
+  items: Pocion[];
+  gemas: number;
+  addItem: (id: number, precio: number) => void;
   removeItem: (id: number) => void;
 }
 
 const CarritoContext = createContext<CarritoContextData>({
   items: [],
+  gemas: 3,
   addItem: () => {},
   removeItem: () => {},
 });
@@ -17,18 +24,25 @@ export function useCarrito() {
 }
 
 export function CarritoProvider({ children }: { children: React.ReactNode }) {
-  const [items, setItems] = useState<number[]>([]);
+  const [items, setItems] = useState<Pocion[]>([]);
+  const [gemas, setGemas] = useState<number>(3);
 
-  function addItem(id: number) {
-    setItems((prevItems) => [...prevItems, id]);
+  function addItem(id: number, precio: number) {
+    setItems((prevItems) => [...prevItems, { id, precio }]);
+    setGemas(gemas - precio);
   }
 
   function removeItem(id: number) {
-    setItems((prevItems) => prevItems.filter((itemId) => itemId !== id));
+    const itemToRemove = items.find((item) => item.id === id);
+    if (itemToRemove) {
+      setGemas(gemas + itemToRemove.precio);
+      setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+    }
   }
 
   const value: CarritoContextData = {
     items,
+    gemas,
     addItem,
     removeItem,
   };
