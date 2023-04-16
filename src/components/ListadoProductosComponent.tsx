@@ -83,7 +83,7 @@ export default function ListadoProductosComponent() {
                 {producto.descripcion}
               </p>
               <button
-                className='bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 w-full rounded'
+                className='bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 w-full rounded-full'
                 onClick={() => agregarItemAlCarrito(producto.id)}
               >
                 Agregar
