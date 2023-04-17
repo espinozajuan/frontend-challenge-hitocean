@@ -3,12 +3,14 @@ import { createContext, useContext, useState } from 'react';
 interface Pocion {
   id: number;
   precio: number;
+  nombre: string;
+  imagen: string;
 }
 
 interface CarritoContextData {
   items: Pocion[];
   gemas: number;
-  addItem: (id: number, precio: number) => void;
+  addItem: (id: number, precio: number, nombre: string, imagen: string) => void;
   removeItem: (id: number) => void;
 }
 
@@ -27,8 +29,8 @@ export function CarritoProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<Pocion[]>([]);
   const [gemas, setGemas] = useState<number>(3);
 
-  function addItem(id: number, precio: number) {
-    setItems((prevItems) => [...prevItems, { id, precio }]);
+  function addItem(id: number, precio: number, nombre: string, imagen: string) {
+    setItems((prevItems) => [...prevItems, { id, precio, nombre, imagen }]);
     setGemas(gemas - precio);
   }
 

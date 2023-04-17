@@ -46,30 +46,39 @@ export default function CarritoComponent({
   return (
     <div>
       <h3 className='text-2xl font-bold mb-4'>Carrito</h3>
-      <ul>
-        {items.map((item, index) => (
-          <li key={item.id} className='flex justify-between py-2 border-b'>
-            <span>
-              Poción {item.id} - {item.precio} gemas
-            </span>
-            <button
-              className='text-red-500 hover:text-red-600'
-              onClick={() => removeItem(item.id)}
-            >
-              Eliminar
-            </button>
-          </li>
-        ))}
-      </ul>
+      <table className='table-auto w-full mb-4'>
+        <tbody>
+          {items.map((item, index) => (
+            <tr key={item.id}>
+              <td className='border p-2'>
+                <img
+                  src={item.imagen}
+                  alt={item.nombre}
+                  className='w-10 h-10 object-cover rounded'
+                />
+              </td>
+              <td className='border p-2'>{item.nombre}</td>
+              <td className='border p-2'>
+                <button
+                  className='text-red-500 hover:text-red-600'
+                  onClick={() => removeItem(item.id)}
+                >
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
       <button
-        className='bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 mt-4 rounded'
+        className='bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 w-full mb-4 rounded'
         onClick={realizarCompra}
         disabled={items.length === 0}
       >
         Comprar
       </button>
       <button
-        className='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 mt-4 rounded ml-4'
+        className='bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 w-full rounded'
         onClick={toggleCarrito}
       >
         Volver

@@ -28,7 +28,12 @@ export default function ListadoProductosComponent() {
       return;
     }
 
-    addItem(id, productoActual.precio);
+    addItem(
+      id,
+      productoActual.precio,
+      productoActual.nombre,
+      productoActual.imagen
+    );
   }
 
   function validarProducto(id: number): boolean {
