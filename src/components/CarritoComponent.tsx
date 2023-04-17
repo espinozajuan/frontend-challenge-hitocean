@@ -46,24 +46,24 @@ export default function CarritoComponent({
   return (
     <div>
       <h3 className='text-2xl font-bold mb-4'>Carrito</h3>
-      <table className='table-auto w-full mb-4'>
+      <table className='table-auto w-full mb-4 bg-stone-700'>
         <tbody>
           {items.map((item, index) => (
-            <tr key={item.id}>
-              <td className='border p-2'>
+            <tr key={item.id} className='border-b border-dashed border-white'>
+              <td className='p-2 text-center'>
                 <img
                   src={item.imagen}
                   alt={item.nombre}
-                  className='w-10 h-10 object-cover rounded'
+                  className='w-10 h-10 object-cover rounded inline-block'
                 />
               </td>
-              <td className='border p-2'>{item.nombre}</td>
-              <td className='border p-2'>
+              <td className='p-2 text-white'>{item.nombre}</td>
+              <td className='p-2 text-center'>
                 <button
-                  className='text-red-500 hover:text-red-600'
+                  className='text-stone-500'
                   onClick={() => removeItem(item.id)}
                 >
-                  Eliminar
+                  X
                 </button>
               </td>
             </tr>
