@@ -22,25 +22,32 @@ export default function ListadoProductosComponent() {
   }, []);
 
   function agregarItemAlCarrito(id: number) {
-    if (items.find((item) => item.id === id)) {
-      alert('Ya has agregado este item al carrito');
-      return;
-    }
-
-    if (items.length >= 3) {
-      alert('No puedes agregar más items al carrito');
-      return;
-    }
-
     const productoActual = productos.find((producto) => producto.id === id);
 
     if (!productoActual) {
       return;
     }
 
+    addItem(id, productoActual.precio);
+  }
+
+  function validarProducto(id: number): boolean {
+    if (items.find((item) => item.id === id)) {
+      return false;
+    }
+
+    if (items.length >= 3) {
+      return false;
+    }
+
+    const productoActual = productos.find((producto) => producto.id === id);
+
+    if (!productoActual) {
+      return false;
+    }
+
     if (gemas < productoActual.precio) {
-      alert('No tienes suficientes gemas para comprar esta poción');
-      return;
+      return false;
     }
 
     const categoriaActual = productoActual.categoria;
@@ -51,11 +58,10 @@ export default function ListadoProductosComponent() {
     );
 
     if (categoriaYaEnCarrito) {
-      alert('Solo puedes agregar un item por categoría al carrito');
-      return;
+      return false;
     }
 
-    addItem(id, productoActual.precio);
+    return true;
   }
 
   return (
@@ -64,6 +70,7 @@ export default function ListadoProductosComponent() {
       <div className='grid grid-cols-2 gap-4'>
         {productos.map((producto) => {
           const gemasText = producto.precio === 1 ? 'Gema' : 'Gemas';
+          const isButtonDisabled = !validarProducto(producto.id);
 
           return (
             <div
@@ -83,8 +90,11 @@ export default function ListadoProductosComponent() {
                 {producto.descripcion}
               </p>
               <button
-                className='bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 w-full rounded-full'
+                className={`bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 w-full rounded-full ${
+                  isButtonDisabled ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
                 onClick={() => agregarItemAlCarrito(producto.id)}
+                disabled={isButtonDisabled}
               >
                 Agregar
               </button>
