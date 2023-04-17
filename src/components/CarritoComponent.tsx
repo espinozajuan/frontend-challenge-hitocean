@@ -23,7 +23,7 @@ export default function CarritoComponent({
     });
 
     if (response.ok) {
-      setMensaje('Compra realizada con éxito');
+      setMensaje('Compra realizada!');
     } else {
       setMensaje('Error al realizar la compra');
     }
@@ -32,12 +32,15 @@ export default function CarritoComponent({
   if (mensaje) {
     return (
       <div>
-        <h3 className='text-2xl font-bold mb-4'>{mensaje}</h3>
         <button
-          className='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 mt-4 rounded'
+          className='bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded mb-2'
           onClick={toggleCarrito}
         >
           Volver
+        </button>
+        <h3 className='text-2xl font-bold mb-4'>{mensaje}</h3>
+        <button className='bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 w-full mb-4 rounded opacity-50 cursor-not-allowed'>
+          Comprar
         </button>
       </div>
     );
@@ -45,7 +48,12 @@ export default function CarritoComponent({
 
   return (
     <div>
-      <h3 className='text-2xl font-bold mb-4'>Carrito</h3>
+      <button
+        className='bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded mb-2'
+        onClick={toggleCarrito}
+      >
+        Volver
+      </button>
       <table className='table-auto w-full mb-4 bg-stone-700'>
         <tbody>
           {items.map((item, index) => (
@@ -76,12 +84,6 @@ export default function CarritoComponent({
         disabled={items.length === 0}
       >
         Comprar
-      </button>
-      <button
-        className='bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 w-full rounded'
-        onClick={toggleCarrito}
-      >
-        Volver
       </button>
     </div>
   );
