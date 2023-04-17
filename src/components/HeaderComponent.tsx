@@ -8,7 +8,7 @@ interface HeaderComponentProps {
 export const HeaderComponent: React.FC<HeaderComponentProps> = ({
   toggleCarrito,
 }) => {
-  const { items, gemas } = useCarrito(); // Obtén las gemas disponibles del contexto
+  const { items, gemas } = useCarrito();
   const cantidadItems = items.length;
 
   return (

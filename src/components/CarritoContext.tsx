@@ -1,19 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-
-interface Pocion {
-  id: number;
-  precio: number;
-  nombre: string;
-  imagen: string;
-}
-
-interface CarritoContextData {
-  items: Pocion[];
-  gemas: number;
-  addItem: (id: number, precio: number, nombre: string, imagen: string) => void;
-  removeItem: (id: number) => void;
-  resetCarrito: () => void;
-}
+import { CarritoContextData, Pocion } from './types';
 
 const CarritoContext = createContext<CarritoContextData>({
   items: [],

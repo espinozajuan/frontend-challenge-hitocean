@@ -1,17 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useCarrito } from './CarritoContext';
-
-interface Producto {
-  id: number;
-  nombre: string;
-  precio: number;
-  categoria: string;
-  descripcion: string;
-  imagen: string;
-}
+import { Pocion } from './types';
 
 export default function ListadoProductosComponent() {
-  const [productos, setProductos] = useState<Producto[]>([]);
+  const [productos, setProductos] = useState<Pocion[]>([]);
   const { items, addItem, gemas } = useCarrito();
 
   useEffect(() => {

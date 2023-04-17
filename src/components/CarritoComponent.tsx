@@ -1,14 +1,11 @@
 import { useState } from 'react';
 import { useCarrito } from './CarritoContext';
-
-interface CarritoComponentProps {
-  toggleCarrito: () => void;
-}
+import { CarritoComponentProps } from './types';
 
 export default function CarritoComponent({
   toggleCarrito,
 }: CarritoComponentProps) {
-  const { items, gemas, removeItem, resetCarrito } = useCarrito();
+  const { items, removeItem, resetCarrito } = useCarrito();
   const [mensaje, setMensaje] = useState<string | null>(null);
 
   const realizarCompra = async () => {
