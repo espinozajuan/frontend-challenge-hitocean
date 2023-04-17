@@ -8,7 +8,7 @@ interface CarritoComponentProps {
 export default function CarritoComponent({
   toggleCarrito,
 }: CarritoComponentProps) {
-  const { items, gemas, removeItem } = useCarrito();
+  const { items, gemas, removeItem, resetCarrito } = useCarrito();
   const [mensaje, setMensaje] = useState<string | null>(null);
 
   const realizarCompra = async () => {
@@ -24,6 +24,7 @@ export default function CarritoComponent({
 
     if (response.ok) {
       setMensaje('Compra realizada!');
+      resetCarrito();
     } else {
       setMensaje('Error al realizar la compra');
     }

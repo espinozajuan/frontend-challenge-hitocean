@@ -12,6 +12,7 @@ interface CarritoContextData {
   gemas: number;
   addItem: (id: number, precio: number, nombre: string, imagen: string) => void;
   removeItem: (id: number) => void;
+  resetCarrito: () => void;
 }
 
 const CarritoContext = createContext<CarritoContextData>({
@@ -19,6 +20,7 @@ const CarritoContext = createContext<CarritoContextData>({
   gemas: 3,
   addItem: () => {},
   removeItem: () => {},
+  resetCarrito: () => {},
 });
 
 export function useCarrito() {
@@ -42,11 +44,17 @@ export function CarritoProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
+  function resetCarrito() {
+    setItems([]);
+    setGemas(3);
+  }
+
   const value: CarritoContextData = {
     items,
     gemas,
     addItem,
     removeItem,
+    resetCarrito,
   };
 
   return (
